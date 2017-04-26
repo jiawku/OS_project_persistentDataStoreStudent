@@ -63,6 +63,8 @@ public class DatastoreServer
 	private ServerCommand dispatchCommand(InputStream inputStream) throws ServerException
 	{
 		String commandCode = null;
+		
+		//get Command from client
 		try{
 			commandCode = StreamUtil.readLine(inputStream).toLowerCase();
 		}catch(IOException e){
@@ -70,6 +72,7 @@ public class DatastoreServer
 			logger.equals(e);
 		}
 		
+		//parse Command and return proper method
 		switch (commandCode){
 		case "read": return new ReadCommand();
 		case "write": return new WriteCommand();

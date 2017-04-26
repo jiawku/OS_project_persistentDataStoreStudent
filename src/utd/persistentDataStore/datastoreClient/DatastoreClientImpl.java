@@ -36,18 +36,22 @@ public class DatastoreClientImpl implements DatastoreClient
 		String feedback;
 		
 		try{
-
-			Socket clientSoc = new Socket(address, port); 		//connection built
-			InputStream clientSocInput = clientSoc.getInputStream();		//set input and output Stream
+			//connection built
+			Socket clientSoc = new Socket(address, port); 		
+			//set input and output Stream
+			InputStream clientSocInput = clientSoc.getInputStream();		
 			OutputStream clientSocOutput  = clientSoc.getOutputStream();
 
-			
+			//send command and write data to server
 			StreamUtil.writeLine("write", clientSocOutput);
 			StreamUtil.writeLine(name, clientSocOutput);
 			StreamUtil.writeLine(String.valueOf(data.length), clientSocOutput);
 			StreamUtil.writeData(data, clientSocOutput);
 			
+			//get feedback from server
 			feedback=StreamUtil.readLine(clientSocInput);
+			
+			//if feedback fail then throw error
 			if (!feedback.equalsIgnoreCase("ok")){
 				clientSocInput.close();
 				clientSocOutput.close();
@@ -76,17 +80,21 @@ public class DatastoreClientImpl implements DatastoreClient
 		String feedback;
 		byte[] data = null;
 		try{
-
-			Socket clientSoc = new Socket(address, port); 		//connection built
-			InputStream clientSocInput = clientSoc.getInputStream();		//set input and output Stream
+			//connection built
+			Socket clientSoc = new Socket(address, port); 		
+			
+			//set input and output Stream
+			InputStream clientSocInput = clientSoc.getInputStream();		
 			OutputStream clientSocOutput  = clientSoc.getOutputStream();
 
-			
+			//send command and file name to server
 			StreamUtil.writeLine("read", clientSocOutput);
 			StreamUtil.writeLine(name, clientSocOutput);
 
-			
+			//get feedback from server
 			feedback=StreamUtil.readLine(clientSocInput);
+			
+			//if feedback fail then throw error else read data
 			if (!feedback.equalsIgnoreCase("ok")){				
 				clientSocInput.close();
 				clientSocOutput.close();
@@ -119,17 +127,21 @@ public class DatastoreClientImpl implements DatastoreClient
 		String feedback;
 		
 		try{
-
-			Socket clientSoc = new Socket(address, port); 		//connection built
-			InputStream clientSocInput = clientSoc.getInputStream();		//set input and output Stream
+			//connection built
+			Socket clientSoc = new Socket(address, port); 		
+			
+			//set input and output Stream
+			InputStream clientSocInput = clientSoc.getInputStream();		
 			OutputStream clientSocOutput  = clientSoc.getOutputStream();
 
-			
+			//send command and file name to server
 			StreamUtil.writeLine("delete", clientSocOutput);
 			StreamUtil.writeLine(name, clientSocOutput);
 
-			
+			//get feedback from server
 			feedback=StreamUtil.readLine(clientSocInput);
+			
+			//if feedback fail then throw error 
 			if (!feedback.equalsIgnoreCase("ok")){				
 				clientSocInput.close();
 				clientSocOutput.close();
@@ -160,15 +172,20 @@ public class DatastoreClientImpl implements DatastoreClient
 		String feedback;
 		
 		try{
-
-			Socket clientSoc = new Socket(address, port); 		//connection built
-			InputStream clientSocInput = clientSoc.getInputStream();		//set input and output Stream
+			//connection built
+			Socket clientSoc = new Socket(address, port); 		
+			
+			//set input and output Stream
+			InputStream clientSocInput = clientSoc.getInputStream();		
 			OutputStream clientSocOutput  = clientSoc.getOutputStream();
 
-			
+			//send command to server
 			StreamUtil.writeLine("directory", clientSocOutput);
 			
+			//get feedback from server
 			feedback=StreamUtil.readLine(clientSocInput);
+			
+			//if feedback fail then throw error else get data
 			if (!feedback.equalsIgnoreCase("ok")){				
 				clientSocInput.close();
 				clientSocOutput.close();

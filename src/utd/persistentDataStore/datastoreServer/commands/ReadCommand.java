@@ -11,11 +11,15 @@ public class ReadCommand extends ServerCommand{
 	
 	@Override
 	public void run() throws IOException, ServerException {
-
+		//get name from client
 		String Read_Name = StreamUtil.readLine(inputStream);
+		
+		//read data from local file system
 		byte[] Data = null;
 		Data = FileUtil.readData(Read_Name);
 		int Data_Length = Data.length;
+		
+		//send feedback to client
 		if (Data_Length != 0){
 			this.sendOK();
 			String Length = Data_Length + "\n";
